@@ -995,10 +995,10 @@ fs.realpath@^1.0.0:
   resolved "https://registry.yarnpkg.com/fs.realpath/-/fs.realpath-1.0.0.tgz#1504ad2523158caa40db4a2787cb01411994ea4f"
   integrity sha512-OO0pH2lK6a0hZnAdau5ItzHPI6pUlvI7jMVnxUQRtw4owF2wk8lOSabtGDCTP4Ggrg2MbGnWO9X8K1t4+fGMDw==
 
-fta-wasm@^0.1.7:
-  version "0.1.7"
-  resolved "https://registry.yarnpkg.com/fta-wasm/-/fta-wasm-0.1.7.tgz#78534d9ec548cd02316b82114dca688204baf7c0"
-  integrity sha512-nj8jf+FMZGypGLAfphaISi0FT4yJD9xAuf0LRzYh/hOhPxv0vf3zNA6rbOtV3oXsSjT1yfvRTW8efaZRR8wmrQ==
+fta-wasm@^0.1.8:
+  version "0.1.8"
+  resolved "https://registry.yarnpkg.com/fta-wasm/-/fta-wasm-0.1.8.tgz#0fbd9da54840a4e5401a1683c5fa07a5fe93c36c"
+  integrity sha512-EyNzVrveHLzePkA54uTO7AJ8sxXcgmbwq35OJnfHSE0+WZsN/2XbzCCeT1iQc/cs6G8mLLdGR2HiaVVffP95jA==
 
 function-bind@^1.1.1:
   version "1.1.1"
