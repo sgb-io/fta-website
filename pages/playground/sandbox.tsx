@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect, useCallback } from "react";
+import { Callout } from "nextra-theme-docs";
 import dedent from "dedent";
 import init, { analyze_file_wasm } from "fta-wasm";
 
@@ -18,6 +19,16 @@ const DEFAULT_CODE_SAMPLE = dedent`
 
 async function runFta(sourceCode: string) {
   return analyze_file_wasm(sourceCode);
+}
+
+function getFtaAssessment(score: number | undefined) {
+  if (!score) return "";
+
+  if (score > 60) return "Needs Improvement";
+
+  if (score > 50) return "Could be better";
+
+  return "OK";
 }
 
 export default function Playground() {
@@ -53,16 +64,51 @@ export default function Playground() {
   }
 
   const analysisOutput = error ? (
-    <div>Warning - {error}</div>
+    <Callout type="warning" emoji="⚠️">
+      {error}
+    </Callout>
   ) : (
-    <div>
+    <div style={{ marginTop: 10 }}>
       <ul>
-        <li>FTA Score: {output?.fta_score.toFixed(0)}</li>
-        <li>Cyclo: {output?.cyclo}</li>
-        <li>Num. lines: {output?.line_count}</li>
         <li>
-          Halstead:
-          <ul>
+          <span style={{ fontSize: 18 }}>
+            <span>
+              <strong>FTA Score:</strong>
+            </span>{" "}
+            {output?.fta_score.toFixed(0)} (Lower is better)
+          </span>
+        </li>
+        <li>
+          <span style={{ fontSize: 18 }}>
+            <span>
+              <strong>FTA Assessment</strong>
+            </span>{" "}
+            {getFtaAssessment(output?.fta_score)}
+          </span>
+        </li>
+        <li>
+          <span>
+            <strong>Cyclo:</strong>
+          </span>{" "}
+          {output?.cyclo}
+        </li>
+        <li>
+          <span>
+            <strong>Num. lines:</strong>
+          </span>{" "}
+          {output?.line_count}
+        </li>
+        <li>
+          <span>
+            <strong>Halstead:</strong>
+          </span>
+          <ul
+            style={{
+              fontSize: 12,
+              paddingLeft: 15,
+              fontStyle: "italic",
+            }}
+          >
             <li>Unique Operators: {output?.halstead_metrics.uniq_operators}</li>
             <li>Total Operators: {output?.halstead_metrics.total_operators}</li>
             <li>Unique Operands: {output?.halstead_metrics.uniq_operands}</li>
@@ -81,18 +127,28 @@ export default function Playground() {
   );
 
   return (
-    <div>
-      <h2>Input</h2>
-      <textarea
-        value={codeContent}
-        onChange={(e) => onUpdateCodeContent(e.target.value)}
-        style={{
-          width: 450,
-          height: 300,
-        }}
-      />
-      <h2>Output</h2>
-      {analysisOutput}
+    <div style={{ display: "flex" }}>
+      <div style={{ width: "70%", marginRight: 20 }}>
+        <h2 style={{ fontSize: 18 }}>Input</h2>
+        <textarea
+          value={codeContent}
+          onChange={(e) => onUpdateCodeContent(e.target.value)}
+          onBlur={(e) => onUpdateCodeContent(e.target.value)}
+          style={{
+            width: "100%",
+            height: 300,
+            padding: 10,
+            fontSize: 14,
+            outline: "none",
+            border: "1px solid gainsboro",
+            marginTop: 15,
+          }}
+        />
+      </div>
+      <div style={{ width: "30%" }}>
+        <h2 style={{ fontSize: 18 }}>Output</h2>
+        {analysisOutput}
+      </div>
     </div>
   );
 }
