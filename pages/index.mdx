@@ -1,0 +1,89 @@
+import { Tab, Tabs } from "nextra-theme-docs";
+
+<h1 align="center" style={{ fontSize: 64, fontWeight: "bold", margin: 50 }}>
+  FTA
+</h1>
+
+<h2 align="center" style={{ fontSize: 24, marginBottom: 50 }}>
+  Fast TypeScript Analyzer
+</h2>
+
+FTA (Fast TypeScript Analyzer) is a super-fast TypeScript static analysis tool written in Rust. It captures static information about TypeScript code and generates easy-to-understand analytics that tell you about complexity and maintainability issues that you may want to address.
+
+FTA uses [swc](https://github.com/swc-project/swc) to parse your code then runs various analytical routines against it to understand how complex and maintainable it is likely to be. JavaScript code is also supported.
+
+---
+
+<div align="center">
+  [Get Started](/docs/) · [Playground](/playground) · [GitHub
+  Repository](https://github.com/sgb-io/fta)
+</div>
+
+---
+
+## Quickstart
+
+There are several ways to run FTA ([see the docs](/docs/)), but the easiest and fastest way is to use `fta-cli`:
+
+<Tabs items={["yarn", "npm", "pnpm"]}>
+  <Tab>
+    <div>`yarn add fta-cli`</div>
+  </Tab>
+  <Tab>
+    <div>`npm install fta-cli`</div>
+  </Tab>
+  <Tab>
+    <div>`pnpm install fta-cli`</div>
+  </Tab>
+</Tabs>
+
+Run `fta-cli` against a TypeScript project:
+
+<Tabs items={["yarn", "npm", "pnpm"]}>
+  <Tab>
+    <div>`yarn fta path/to/project`</div>
+  </Tab>
+  <Tab>
+    <div>`npm run fta path/to/project`</div>
+  </Tab>
+  <Tab>
+    <div>`pnpm fta path/to/project`</div>
+  </Tab>
+</Tabs>
+
+Example output against the Redux project (`yarn fta path/to/redux`):
+
+```
+| ----------------------------------------- | ------------ | ----------------------------- | ------------------- |
+| File                                      |   Num. lines |   FTA Score (Lower is better) |          Assessment
+| ----------------------------------------- | ------------ | ----------------------------- | ------------------- |
+| src\createStore.ts                        |          490 |                         70.25 | (Needs improvement) |
+| website\src\pages\index.js                |          218 |                         64.94 | (Needs improvement) |
+| src\combineReducers.ts                    |          202 |                         61.61 | (Needs improvement) |
+| src\compose.ts                            |           62 |                         52.68 |   (Could be better) |
+| src\bindActionCreators.ts                 |           84 |                         51.89 |   (Could be better) |
+| src\utils\kindOf.ts                       |           71 |                         48.80 |                  OK |
+| src\utils\warning.ts                      |           19 |                         35.00 |                  OK |
+| src\utils\isPlainObject.ts                |           15 |                         34.32 |                  OK |
+| src\utils\symbol-observable.ts            |           11 |                         31.89 |                  OK |
+| website\docusaurus.config.js              |          197 |                         18.04 |                  OK |
+| website\sidebars.js                       |          149 |                         15.82 |                  OK |
+| rollup.config.js                          |           80 |                         15.79 |                  OK |
+| tsup.config.ts                            |           73 |                         15.59 |                  OK |
+| src\applyMiddleware.ts                    |           78 |                         15.45 |                  OK |
+| website\src\pages\errors.js               |           63 |                         15.09 |                  OK |
+| website\src\js\monokaiTheme.js            |           63 |                         14.32 |                  OK |
+| src\utils\actionTypes.ts                  |           18 |                         11.91 |                  OK |
+| src\index.ts                              |           47 |                         11.84 |                  OK |
+| vitest.config.ts                          |           18 |                          9.92 |                  OK |
+| docs\components\DetailedExplanation.jsx   |           16 |                          9.67 |                  OK |
+| src\utils\formatProdErrorMessage.ts       |           14 |                          8.57 |                  OK |
+| ----------------------------------------- | ------------ | ----------------------------- | ------------------- |
+21 files analyzed in 0.1079s.
+```
+
+You can also see how FTA analyzes individual files by using the [Playground](/playground/).
+
+## Get Involved
+
+FTA is completely open-source. Get involved by joining the discussion on the [GitHub Repository](https://github.com/sgb-io/fta).

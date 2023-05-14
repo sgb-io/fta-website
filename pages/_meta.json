@@ -1,0 +1,18 @@
+{
+  "index": {
+    "title": "Introduction",
+    "type": "page",
+    "display": "hidden"
+  },
+  "docs": {
+    "title": "Docs",
+    "type": "page"
+  },
+  "playground": {
+    "title": "Playground",
+    "type": "page",
+    "theme": {
+      "layout": "full"
+    }
+  }
+}

@@ -1,4 +1,6 @@
-module.exports = {
+const nextra = require("nextra");
+
+const config = {
   webpack(config, { isServer, dev }) {
     config.experiments = {
       asyncWebAssembly: true,
@@ -32,3 +34,10 @@ class WasmChunksFixPlugin {
     });
   }
 }
+
+const withNextra = nextra({
+  theme: "nextra-theme-docs",
+  themeConfig: "./theme.config.jsx",
+});
+
+module.exports = withNextra(config);

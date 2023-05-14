@@ -1,0 +1,55 @@
+# Configuration
+
+To configure how FTA interprets a project, define a `fta.json` file in the project's root.
+
+There are various options available.
+
+## Configuration Options
+
+### `output_limit`
+
+How many files to include in the output.
+
+- **Default: 5000**
+
+### `score_cap`
+
+Maximum FTA score which will cause FTA to throw. Useful if you want to prevent any files being added to the project that exceed a certain maintainability level. For an existing project, you might opt to set this as your _curent-highest-fta-score_.
+
+- **Default: 1000**
+
+### `exclude_directories`
+
+An array of directory paths representing directories to exclude from the analysis. Files within any of these directories will be ignored. Paths can be specified as relative to the project root. The defaults are always used; any supplied values are added to the exclusions list.
+
+- **Default: `["/dist", "/bin", "/build"]`**
+
+### `exclude_filenames`
+
+An array of glob patterns representing filenames to exclude from the analysis. Files matching any of these patterns will be ignored. Globs can include wildcards and brace expansions. The defaults are always used; any supplied values are added to the exclusions list.
+
+- **Default: `[".d.ts", ".min.js", ".bundle.js"]`**
+
+### `extensions`
+
+File extensions to identify files that should be interpreted as TypeScript code. JavaScript files are also accepted. The defaults are always used; any supplied values are added to the inclusions list.
+
+- **Default: `[".js", ".jsx", ".ts", ".tsx"]`**
+
+## Example
+
+Example configuration `fta.json`:
+
+```json
+{
+  "output_limit": 250,
+  "score_cap": 90,
+  "exclude_directories": ["__fixtures__"],
+  "exclude_filenames": ["*.test.{ts,tsx}"],
+  "extensions": [".cjs"]
+}
+```
+
+Here, we've limited the output to 250 files, capped the FTA score to 90, excluded anything in the `/path/to/project/__fixtures__` dir, excluded test files and included files with the `.cjs` extension.
+
+Note: spec/test files (that contain TypeScript or JavaScript code) are included by default, since they constitute material code that must be maintained. This is optional - users are free to exclude test code from outputs, like in this example.

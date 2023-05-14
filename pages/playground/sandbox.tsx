@@ -4,7 +4,7 @@ import { useState, useEffect, useCallback } from "react";
 import dedent from "dedent";
 import init, { analyze_file_wasm } from "fta-wasm";
 
-import type { AnalysisResult } from "../types";
+import type { AnalysisResult } from "../../src/app/types";
 
 const DEFAULT_CODE_SAMPLE = dedent`
   // Paste your TypeScript code here
