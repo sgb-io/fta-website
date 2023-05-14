@@ -7,14 +7,14 @@ import init, { analyze_file_wasm } from "fta-wasm";
 import type { AnalysisResult } from "../types";
 
 const DEFAULT_CODE_SAMPLE = dedent`
+  // Paste your TypeScript code here
+
   function add(a: number, b: number) {
     return a + b;
   }
 
-  add(2, 4); // 6
+  add(2, 4);
 `;
-
-let firstRes: string;
 
 async function runFta(sourceCode: string) {
   return analyze_file_wasm(sourceCode);
@@ -31,6 +31,7 @@ export default function Playground() {
       setError(undefined);
       setOutput(JSON.parse(output) as AnalysisResult);
     } catch (e) {
+      console.warn(e);
       setError(
         "Unable to parse and analyze input - please ensure you supplied valid TypeScript."
       );
@@ -57,6 +58,7 @@ export default function Playground() {
     <div>
       <ul>
         <li>FTA Score: {output?.fta_score.toFixed(0)}</li>
+        <li>Cyclo: {output?.cyclo}</li>
         <li>Num. lines: {output?.line_count}</li>
         <li>
           Halstead:

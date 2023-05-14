@@ -14,6 +14,7 @@ interface HalsteadMetrics {
 
 export interface AnalysisResult {
   fta_score: number;
+  cyclo: number;
   line_count: number;
   halstead_metrics: HalsteadMetrics;
 }
