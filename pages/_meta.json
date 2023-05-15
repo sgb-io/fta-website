@@ -6,7 +6,8 @@
   },
   "docs": {
     "title": "Docs",
-    "type": "page"
+    "type": "page",
+    "href": "/docs/getting-started"
   },
   "playground": {
     "title": "Playground",
