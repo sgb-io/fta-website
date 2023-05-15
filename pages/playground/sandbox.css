@@ -1,0 +1,76 @@
+.sandbox-left,
+.sandbox-right {
+  margin: 0 20px;
+}
+
+.sandbox-container {
+  display: flex;
+  flex-direction: column;
+}
+
+.sandbox-textarea {
+  resize: none;
+  width: 100%;
+  min-height: 300px;
+  padding: 10px;
+  font-size: 14px;
+  outline: none;
+  border: 1px solid gainsboro;
+  margin-top: 15px;
+}
+
+.halstead-table {
+  width: 100%;
+  font-size: 12px;
+  text-align: left;
+  margin-top: 15px;
+}
+
+.output-ok {
+  background: #baefba;
+  padding: 4px;
+  color: #105307;
+  border-radius: 5px;
+}
+
+.output-could-be-better {
+  background: #fffaa5;
+  padding: 4px;
+  color: #806e15;
+  border-radius: 5px;
+}
+
+.output-needs-improvement {
+  background: #fdc061;
+  padding: 4px;
+  color: #684505;
+  border-radius: 5px;
+}
+
+.output-tip {
+  font-size: 14px;
+  line-height: 20px;
+}
+
+.output-tip-list {
+  list-style: disc;
+  padding-left: 10px;
+}
+
+@media (min-width: 1250px) {
+  .sandbox-container {
+    flex-direction: row;
+  }
+
+  .sandbox-left {
+    width: 60%;
+  }
+
+  .sandbox-right {
+    width: 40%;
+  }
+
+  .sandbox-textarea {
+    height: 500px;
+  }
+}

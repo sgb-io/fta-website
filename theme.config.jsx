@@ -6,7 +6,7 @@ const config = {
   },
   logo: (
     <>
-      <Image src="/fta-logo.jpg" width={74} height={45} alt="FTA" />
+      <Image src="/fta-logo.png" width={74} height={45} alt="FTA" />
       <span style={{ marginLeft: 10 }}>Fast TypeScript Analyzer</span>
     </>
   ),
@@ -19,6 +19,11 @@ const config = {
         , powered by Nextra
       </span>
     ),
+  },
+  useNextSeoProps: () => {
+    return {
+      titleTemplate: "%s – FTA",
+    };
   },
 };
 

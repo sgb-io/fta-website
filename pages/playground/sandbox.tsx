@@ -1,9 +1,12 @@
 "use client";
 
 import { useState, useEffect, useCallback } from "react";
+import dynamic from "next/dynamic";
 import { Callout } from "nextra-theme-docs";
 import dedent from "dedent";
 import init, { analyze_file_wasm } from "fta-wasm";
+
+import "./sandbox.css";
 
 import type { AnalysisResult } from "../../src/app/types";
 
@@ -24,14 +27,16 @@ async function runFta(sourceCode: string) {
 function getFtaAssessment(score: number | undefined) {
   if (!score) return "";
 
-  if (score > 60) return "Needs Improvement";
+  if (score > 60)
+    return <span className="output-needs-improvement">Needs Improvement</span>;
 
-  if (score > 50) return "Could be better";
+  if (score > 50)
+    return <span className="output-could-be-better">Could be better</span>;
 
-  return "OK";
+  return <span className="output-ok">OK - Considered Maintainable</span>;
 }
 
-export default function Playground() {
+function Playground() {
   const [error, setError] = useState<string>();
   const [output, setOutput] = useState<AnalysisResult>();
   const [codeContent, setCodeContent] = useState(DEFAULT_CODE_SAMPLE);
@@ -68,7 +73,7 @@ export default function Playground() {
       {error}
     </Callout>
   ) : (
-    <div style={{ marginTop: 10 }}>
+    <div style={{ marginTop: 10 }} className="sandbox-output">
       <ul>
         <li>
           <span style={{ fontSize: 18 }}>
@@ -79,76 +84,104 @@ export default function Playground() {
           </span>
         </li>
         <li>
-          <span style={{ fontSize: 18 }}>
-            <span>
-              <strong>FTA Assessment</strong>
-            </span>{" "}
+          <span style={{ fontSize: 18, margin: "10px 0", display: "block" }}>
             {getFtaAssessment(output?.fta_score)}
           </span>
         </li>
-        <li>
-          <span>
-            <strong>Cyclo:</strong>
-          </span>{" "}
-          {output?.cyclo}
-        </li>
-        <li>
-          <span>
-            <strong>Num. lines:</strong>
-          </span>{" "}
-          {output?.line_count}
-        </li>
-        <li>
-          <span>
-            <strong>Halstead:</strong>
-          </span>
-          <ul
-            style={{
-              fontSize: 12,
-              paddingLeft: 15,
-              fontStyle: "italic",
-            }}
-          >
-            <li>Unique Operators: {output?.halstead_metrics.uniq_operators}</li>
-            <li>Total Operators: {output?.halstead_metrics.total_operators}</li>
-            <li>Unique Operands: {output?.halstead_metrics.uniq_operands}</li>
-            <li>Total Operands: {output?.halstead_metrics.total_operands}</li>
-            <li>Program Length: {output?.halstead_metrics.program_length}</li>
-            <li>Vocabulary Size: {output?.halstead_metrics.vocabulary_size}</li>
-            <li>Volume: {output?.halstead_metrics.volume}</li>
-            <li>Difficulty: {output?.halstead_metrics.difficulty}</li>
-            <li>Effort: {output?.halstead_metrics.effort}</li>
-            <li>Time: {output?.halstead_metrics.time}</li>
-            <li>Bugs: {output?.halstead_metrics.bugs}</li>
-          </ul>
-        </li>
       </ul>
+      <table className="halstead-table">
+        <thead>
+          <th>Item</th>
+          <th>Result</th>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Num. lines</td>
+            <td>{output?.line_count}</td>
+          </tr>
+          <tr>
+            <td>Cyclomatic Complexity</td>
+            <td>{output?.cyclo}</td>
+          </tr>
+          <tr>
+            <td colSpan={2}>Halstead</td>
+          </tr>
+          <tr>
+            <td>Unique / Total Operators</td>
+            <td>
+              {output?.halstead_metrics.uniq_operators} (
+              {output?.halstead_metrics.total_operators})
+            </td>
+          </tr>
+          <tr>
+            <td>Unique / Total Operands</td>
+            <td>
+              {output?.halstead_metrics.uniq_operands} (
+              {output?.halstead_metrics.total_operands})
+            </td>
+          </tr>
+          <tr>
+            <td>Length</td>
+            <td>{output?.halstead_metrics.program_length}</td>
+          </tr>
+          <tr>
+            <td>Vocab Size</td>
+            <td>{output?.halstead_metrics.vocabulary_size}</td>
+          </tr>
+          <tr>
+            <td>Volume</td>
+            <td>{output?.halstead_metrics.volume.toFixed(2)}</td>
+          </tr>
+          <tr>
+            <td>Difficulty</td>
+            <td>{output?.halstead_metrics.difficulty.toFixed(2)}</td>
+          </tr>
+          <tr>
+            <td>Effort</td>
+            <td>{output?.halstead_metrics.effort.toFixed(2)}</td>
+          </tr>
+          <tr>
+            <td>Time</td>
+            <td>{output?.halstead_metrics.time.toFixed(2)}</td>
+          </tr>
+          <tr>
+            <td>Bugs</td>
+            <td>{output?.halstead_metrics.bugs.toFixed(2)}</td>
+          </tr>
+        </tbody>
+      </table>
     </div>
   );
 
   return (
-    <div style={{ display: "flex" }}>
-      <div style={{ width: "70%", marginRight: 20 }}>
+    <div className="sandbox-container">
+      <div className="sandbox-left">
         <h2 style={{ fontSize: 18 }}>Input</h2>
         <textarea
+          className="sandbox-textarea"
           value={codeContent}
           onChange={(e) => onUpdateCodeContent(e.target.value)}
           onBlur={(e) => onUpdateCodeContent(e.target.value)}
-          style={{
-            width: "100%",
-            height: 300,
-            padding: 10,
-            fontSize: 14,
-            outline: "none",
-            border: "1px solid gainsboro",
-            marginTop: 15,
-          }}
         />
       </div>
-      <div style={{ width: "30%" }}>
+      <div className="sandbox-right">
         <h2 style={{ fontSize: 18 }}>Output</h2>
         {analysisOutput}
+        <div className="output-tip">
+          <Callout emoji="💡" type="info">
+            Lower scores for individual files are achieved by:
+            <ul className="output-tip-list">
+              <li>Keeping the number of logical paths to a minimum</li>
+              <li>Reducing the number of entities or operations in the code</li>
+              <li>Avoiding single files that contain 1000s of lines</li>
+            </ul>
+          </Callout>
+        </div>
       </div>
     </div>
   );
 }
+
+export default dynamic(() => Promise.resolve(Playground), {
+  ssr: false,
+});
