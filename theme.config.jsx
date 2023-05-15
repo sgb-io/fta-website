@@ -81,6 +81,7 @@ const config = {
       titleTemplate: "%s – FTA",
     };
   },
+  head: <Head />,
 };
 
 export default config;
