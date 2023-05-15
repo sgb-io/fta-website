@@ -1,3 +1,12 @@
+.sandbox-stage {
+  background: #f9f9f9;
+  padding: 20px;
+}
+
+.dark .sandbox-stage {
+  background: #2b2b2b;
+}
+
 .sandbox-left,
 .sandbox-right {
   margin: 0 20px;
