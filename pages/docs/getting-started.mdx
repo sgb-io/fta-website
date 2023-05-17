@@ -6,7 +6,7 @@ FTA is distributed in several ways:
 
 - The `fta-cli` [npm package](https://www.npmjs.com/package/fta-cli) for command-line or server-side Node.js usage _**(Recommended)**_
 - The `fta-wasm` [npm package](https://www.npmjs.com/package/fta-wasm) - for in-browser WebAssembly usage (this is what the [Playground](/playground) runs)
-- The `fta` [Rust library](https://crates.io/crates/fta) - internal or advanced usage only
+- The `fta` [Rust crate](https://crates.io/crates/fta) - internal or advanced usage only
 
 The most common and easiest way to use FTA is by calling `fta-cli` either as a binary or from a Node.js server-side context.
 
@@ -23,6 +23,8 @@ There are several ways to use `fta`. The simplest is to use `fta-cli`:
 ```
 npx fta-cli path/to/project
 ```
+
+Example output against the Redux project:
 
 ```
 | ----------------------------------------- | ------------ | ----------------------------- | ------------------- |
@@ -85,6 +87,8 @@ You can also call `fta-cli` from code:
 
 ```javascript
 import { runFta } from "fta-cli";
+// CommonJS alternative:
+// const { runFta } = require("fta-cli");
 
 // Print the standard ascii table output
 const standardOutput = runFta("path/to/project");

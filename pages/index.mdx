@@ -27,39 +27,17 @@ FTA uses [swc](https://github.com/swc-project/swc) to parse your code then runs 
 
 ## Quickstart
 
-There are several ways to run FTA ([see the docs](/docs/getting-started)), but the easiest and fastest way is to use `fta-cli`:
+There are several ways to use `fta`. The simplest is to use `fta-cli`:
 
-<Tabs items={["yarn", "npm", "pnpm"]}>
-  <Tab>
-    <div>`yarn add fta-cli`</div>
-  </Tab>
-  <Tab>
-    <div>`npm install fta-cli`</div>
-  </Tab>
-  <Tab>
-    <div>`pnpm install fta-cli`</div>
-  </Tab>
-</Tabs>
+```
+npx fta-cli path/to/project
+```
 
-Run `fta-cli` against a TypeScript project:
-
-<Tabs items={["yarn", "npm", "pnpm"]}>
-  <Tab>
-    <div>`yarn fta path/to/project`</div>
-  </Tab>
-  <Tab>
-    <div>`npm run fta path/to/project`</div>
-  </Tab>
-  <Tab>
-    <div>`pnpm fta path/to/project`</div>
-  </Tab>
-</Tabs>
-
-Example output against the Redux project (`yarn fta path/to/redux`):
+Example output against the Redux project:
 
 ```
 | ----------------------------------------- | ------------ | ----------------------------- | ------------------- |
-| File                                      |   Num. lines |   FTA Score (Lower is better) |          Assessment
+| File                                      |   Num. lines |   FTA Score (Lower is better) |          Assessment |
 | ----------------------------------------- | ------------ | ----------------------------- | ------------------- |
 | src\createStore.ts                        |          490 |                         70.25 | (Needs improvement) |
 | website\src\pages\index.js                |          218 |                         64.94 | (Needs improvement) |
@@ -85,6 +63,8 @@ Example output against the Redux project (`yarn fta path/to/redux`):
 | ----------------------------------------- | ------------ | ----------------------------- | ------------------- |
 21 files analyzed in 0.1079s.
 ```
+
+View the full [docs](/docs/getting-started/) to see all the possible ways to use FTA.
 
 You can also see how FTA analyzes individual files by using the [Playground](/playground/).
 
