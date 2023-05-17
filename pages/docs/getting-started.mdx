@@ -5,7 +5,7 @@ import { Tab, Tabs } from "nextra-theme-docs";
 FTA is distributed in several ways:
 
 - The `fta-cli` [npm package](https://www.npmjs.com/package/fta-cli) for command-line or server-side Node.js usage _**(Recommended)**_
-- The `fta-wasm` [npm package](https://www.npmjs.com/package/fta-wasm) - for in-browser WebAssembly usage
+- The `fta-wasm` [npm package](https://www.npmjs.com/package/fta-wasm) - for in-browser WebAssembly usage (this is what the [Playground](/playground) runs)
 - The `fta` [Rust library](https://crates.io/crates/fta) - internal or advanced usage only
 
 The most common and easiest way to use FTA is by calling `fta-cli` either as a binary or from a Node.js server-side context.
@@ -18,59 +18,15 @@ You can call it:
 
 ## Installation
 
-To install `fta-cli`:
-
-<Tabs items={["yarn", "npm", "pnpm"]}>
-  <Tab>
-    <div>`yarn add fta-cli`</div>
-  </Tab>
-  <Tab>
-    <div>`npm install fta-cli`</div>
-  </Tab>
-  <Tab>
-    <div>`pnpm install fta-cli`</div>
-  </Tab>
-</Tabs>
-
-Call `fta-cli` from a scripting context:
-
-<Tabs items={["yarn", "npm", "pnpm"]}>
-  <Tab>
-    <div>`yarn fta path/to/project`</div>
-  </Tab>
-  <Tab>
-    <div>`npm run fta path/to/project`</div>
-  </Tab>
-  <Tab>
-    <div>`pnpm fta path/to/project`</div>
-  </Tab>
-</Tabs>
-
-or, call from code:
-
-```javascript
-import { runFta } from "fta-cli";
-
-const output = runFta("path/to/project", { json: true });
-
-console.log(output); // Full output
-```
-
-It is also possible to make fta print the output as json in a scripting context:
+There are several ways to use `fta`. The simplest is to use `fta-cli`:
 
 ```
-yarn fta path/to/project --json
+npx fta-cli path/to/project
 ```
-
-To use fta natively in a browser (client-side), the `fta-wasm` package exists. The FTA binary is precompiled to WebAssembley and exposed through this npm package.
-
-## Example
-
-Example output against the Redux project (`yarn fta path/to/redux`):
 
 ```
 | ----------------------------------------- | ------------ | ----------------------------- | ------------------- |
-| File                                      |   Num. lines |   FTA Score (Lower is better) |          Assessment
+| File                                      |   Num. lines |   FTA Score (Lower is better) |          Assessment |
 | ----------------------------------------- | ------------ | ----------------------------- | ------------------- |
 | src\createStore.ts                        |          490 |                         70.25 | (Needs improvement) |
 | website\src\pages\index.js                |          218 |                         64.94 | (Needs improvement) |
@@ -96,6 +52,54 @@ Example output against the Redux project (`yarn fta path/to/redux`):
 | ----------------------------------------- | ------------ | ----------------------------- | ------------------- |
 21 files analyzed in 0.1079s.
 ```
+
+## Call FTA from a script
+
+1. To call FTA from a script, install `fta-cli` as a dependency and call it:
+
+To install `fta-cli`:
+
+<Tabs items={["yarn", "npm", "pnpm"]}>
+  <Tab>
+    <div>`yarn add fta-cli`</div>
+  </Tab>
+  <Tab>
+    <div>`npm install fta-cli`</div>
+  </Tab>
+  <Tab>
+    <div>`pnpm install fta-cli`</div>
+  </Tab>
+</Tabs>
+
+2. Call `fta` from a `package.json` script:
+
+```json
+"scripts": {
+  "fta": "fta src"
+}
+```
+
+## Call FTA from code
+
+You can also call `fta-cli` from code:
+
+```javascript
+import { runFta } from "fta-cli";
+
+// Print the standard ascii table output
+const standardOutput = runFta("path/to/project");
+
+// Alternatively, get the full output as JSON so that you can interact with it
+const output = runFta("path/to/project", { json: true });
+```
+
+It is also possible to make fta print the output as json in a scripting context:
+
+```
+yarn fta path/to/project --json
+```
+
+To use fta natively in a browser (client-side), the `fta-wasm` package exists. The FTA binary is precompiled to WebAssembley and exposed through this npm package. The `fta-wasm` package can be seen in action on the [Playground](/playground).
 
 ## Configuration
 
