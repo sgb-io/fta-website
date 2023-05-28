@@ -1,14 +1,25 @@
 ## Scoring
 
-For conveinience, FTA generates a single `FTA Score` that serves as a general, overall indication of the quality of a particular TypeScript file.
+The goal of FTA is to produce reliable metrics about code that supports refactoring decisions.
+
+Large files with high levels of complexity, containing many _parts_ and many _paths_ are significantly more difficult to maintain than smaller, simpler files. On a per-file basis, FTA aims to help developers identify and avoid too much concentrated complexity.
+
+To this end, under the hood, FTA analyzes code to produce 4 key metrics:
+
+- **The Halstead Metrics**: uses the unique and total number of operators and operands in the code to calculate several complexity measures such as size, vocabulary, difficulty, time to program and "delivered bugs". See below for more information.
+- **Cyclomatic Complexity**: the effective number of distinct logical paths through the code
+- **Lines of code**
+- **FTA Score**: A normalized aggregate of the other metrics that provides an overall indication of maintainability
+
+For convenience, the `FTA Score` serves as a general, overall indication of the quality of a particular TypeScript file. FTA will also output a TLDR assessment for files:
+
+| FTA Score | Assessment                                |
+| --------- | ----------------------------------------- |
+| > 60      | Needs Improvement - Difficult to maintain |
+| 50-60     | Could be better - Reasonably maintainable |
+| < 50      | OK - Considered maintainable              |
 
 That said, all metrics are exposed and it is up to users to decide how it's metrics can enhance productivity for your team.
-
-Under the hood, a few key metrics are calculated:
-
-- **The Halstead Metrics**: uses the unique and total number of operators and operands in the code to calculate several complexity measures such as size, vocabulary, difficulty, time to program and "delivered bugs".
-- **Cyclomatic Complexity**: the effective number of distinct logical paths through the code
-- **Lines of code**: self explanatory
 
 The full metrics available for each file:
 
@@ -34,3 +45,33 @@ The full metrics available for each file:
   "assessment": "(Needs improvement)"
 }
 ```
+
+## Halstead Complexity Measures
+
+Halstead complexity measures are a set of software metrics developed by Maurice Halstead in 1977, aimed at quantifying the complexity of a program. They're calculated using properties of the source code, focusing on the operators and operands used.
+
+| Measure Name                 | Description                                                                           | TLDR                                                         |
+| ---------------------------- | ------------------------------------------------------------------------------------- | ------------------------------------------------------------ |
+| Program Length (N)           | The total count of operators and operands.                                            | The number of "parts" (operators and operands) in your code. |
+| Program Vocabulary (n)       | The total count of unique operators and operands.                                     | The number of _unique_ "parts" in your code.                 |
+| Volume (V)                   | A measure of the size of the program. `V = N * log2(n)`.                              | An estimate of how much "space" the code takes up.           |
+| Difficulty (D)               | Quantifies how difficult a program is to write or understand. `D = (n1/2) * (N2/n2)`. | _How hard is this code to understand?_                       |
+| Effort (E)                   | An estimation of the amount of work required to write a program. `E = D * V`.         | _How much logical work is required to write this code?_      |
+| Time required to program (T) | An estimation of the time required to write the program. `T = E / 18` (seconds).      | _How long might this code take to write?_                    |
+| Bugs predicted (B)           | An estimation of the number of bugs in the program. `B = V / 3000`.                   | _How buggy is this code likely to be?_                       |
+
+These measures are somewhat theoretical and their practical application can be debated, however, they provide a mathematical basis to reason about code complexity.
+
+When combined with Cyclomatic Complexity and number of lines to produce `FTA Score`, we get a reasonable idea about when code is becoming difficult to maintain.
+
+Since FTA exposes all metrics, users are free to interpret these outputs however they choose, i.e, can opt-out of using the provided `FTA Score` or Assessment and instead write their own algorithm.
+
+## Interpreting Results
+
+For the vast majority of projects, it is very likely that FTA will tell you that you have at least some files that `Could be better` or `Needs improvement`. The bar for achieving `OK` is fairly high (max FTA score of `50`, see above), meaning you can only store a limited amount of operators, operands and logical paths within a single file before FTA will start telling you that improvement is needed.
+
+FTA encourages breaking down large, complex files into smaller, more maintainable parts. Simplifying and breaking apart code is the only effective way to improve FTA scores.
+
+It's entirely reasonable that you might consider something maintainable that has a high FTA score. FTA aims to provide guidance, but not dictate what is OK and what is not. In reality, there are many other factors you should take into account when evaluating the maintainability of code. FTA simply provides you with some baseline information to work with, particularly for files that have _very_ high FTA scores - that usually indicates a smell.
+
+You can optionally set FTA score limits for your project so that new files that exceed the current-worst-fta-score (or other arbitrary limit you wish to enforce) are prohibited in CI. See [Configuration](/docs/configuration).
