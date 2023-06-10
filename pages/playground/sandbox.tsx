@@ -20,8 +20,13 @@ const DEFAULT_CODE_SAMPLE = dedent`
   add(2, 4);
 `;
 
+// fta-wasm does not have the retry logic; replicate it here
 async function runFta(sourceCode: string) {
-  return analyze_file_wasm(sourceCode);
+  try {
+    return analyze_file_wasm(sourceCode, true);
+  } catch (e) {
+    return analyze_file_wasm(sourceCode, false);
+  }
 }
 
 function getFtaAssessment(score: number | undefined) {
@@ -49,7 +54,7 @@ function Playground() {
     } catch (e) {
       console.warn(e);
       setError(
-        "Unable to parse and analyze input - please ensure you supplied valid TypeScript."
+        "Unable to parse and analyze input - please ensure you supplied valid TypeScript or JavaScript code. If using JSX, ensure you aren't mixing ambiguous syntax."
       );
     }
   }, [codeContent]);
@@ -70,7 +75,20 @@ function Playground() {
 
   const analysisOutput = error ? (
     <Callout type="warning" emoji="⚠️">
-      {error}
+      <span>{error}</span>
+      <br />
+      <br />
+      <span>
+        If you believe this is a bug, please{" "}
+        <a
+          className="error-issue-link"
+          target="_blank"
+          href="https://github.com/sgb-io/fta/issues/new"
+        >
+          file an issue on GitHub
+        </a>
+        .
+      </span>
     </Callout>
   ) : (
     <div style={{ marginTop: 10 }} className="sandbox-output">

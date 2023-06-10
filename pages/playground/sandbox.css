@@ -66,6 +66,11 @@
   padding-left: 10px;
 }
 
+.error-issue-link {
+  text-decoration: underline;
+  font-weight: bold;
+}
+
 @media (min-width: 1250px) {
   .sandbox-container {
     flex-direction: row;
