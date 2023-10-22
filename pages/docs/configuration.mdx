@@ -2,21 +2,62 @@
 
 FTA expects to be provided a directory ("project root") and will automatically look for TypeScript and JavaScript code within that directory.
 
-To configure how FTA interprets a project, define a `fta.json` file in the project's root.
+To configure how FTA interprets a project, you can either pass CLI arguments or create a `fta.json` file. FTA will automatically look for `fta.json` in the project root, but you can only specify this with `--config-path`.
+
+## Supplying Options
+
+Some options can also be controlled via CLI arguments, but not all:
+
+CLI arguments
+
+| Argument        | `fta.json` configuration option? |
+| --------------- | -------------------------------- |
+| `--config-path` | `--config-path`                  |
+| `--format`      | `--format`                       |
+| `--json`        | `--json`                         |
+
+Configuration Options, set via `fta.json`
+
+| Option                | CLI argument         |
+| --------------------- | -------------------- |
+| `output_limit`        | `--output-limit`     |
+| `score_cap`           | `--score-cap`        |
+| `include_comments`    | `--include-comments` |
+| `exclude_under`       | `--exclude-under`    |
+| `exclude_under`       | `--exclude-under`    |
+| `extensions`          | N/A                  |
+| `exclude_filenames`   | N/A                  |
+| `exclude_directories` | N/A                  |
 
 ## Configuration Options
 
 ### `output_limit`
 
-How many files to include in the output.
+How many files to include in the output. Only applies to the `table` format.
 
+- CLI argument: `--output-limit`
 - **Default: 5000**
 
 ### `score_cap`
 
 Maximum FTA score which will cause FTA to throw. Useful if you want to prevent any files being added to the project that exceed a certain maintainability level. For an existing project, you might opt to set this as your _curent-highest-fta-score_.
 
+- CLI argument: `--score-cap`
 - **Default: 1000**
+
+### `include_comments`
+
+Whether to include code comments as part of the analysis. Most of the time, comments should not be considered a contributor towards complexity, hence the default of `false`.
+
+- CLI argument: `--include-comments`
+- **Default: false**
+
+### `exclude_under`
+
+Minimum number of lines of code for files to be included in the output. The default is `6` to exclude very small files as a sensible default.
+
+- CLI argument: `--exclude-under`
+- **Default: 6**
 
 ### `exclude_directories`
 
@@ -46,7 +87,9 @@ Example configuration `fta.json`:
   "score_cap": 90,
   "exclude_directories": ["__fixtures__"],
   "exclude_filenames": ["*.test.{ts,tsx}"],
-  "extensions": [".cjs"]
+  "extensions": [".cjs"],
+  "include_comments": false,
+  "exclude_under": 10
 }
 ```
 
