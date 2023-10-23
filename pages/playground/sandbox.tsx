@@ -23,9 +23,9 @@ const DEFAULT_CODE_SAMPLE = dedent`
 // fta-wasm does not have the retry logic; replicate it here
 async function runFta(sourceCode: string) {
   try {
-    return analyze_file_wasm(sourceCode, true);
+    return analyze_file_wasm(sourceCode, true, false);
   } catch (e) {
-    return analyze_file_wasm(sourceCode, false);
+    return analyze_file_wasm(sourceCode, false, false);
   }
 }
 
