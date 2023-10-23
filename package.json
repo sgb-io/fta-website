@@ -15,15 +15,17 @@
     "dedent": "^0.7.0",
     "eslint": "8.40.0",
     "eslint-config-next": "13.4.2",
-    "fta-wasm": "^0.1.11",
+    "fta-wasm": "^1.0.0",
     "next": "13.4.2",
     "nextra": "^2.5.2",
     "nextra-theme-docs": "^2.5.2",
     "react": "18.2.0",
     "react-dom": "18.2.0",
+    "react-syntax-highlighter": "^15.5.0",
     "typescript": "5.0.4"
   },
   "devDependencies": {
-    "@types/dedent": "^0.7.0"
+    "@types/dedent": "^0.7.0",
+    "@types/react-syntax-highlighter": "^15.5.9"
   }
 }
