@@ -2,7 +2,7 @@
 
 FTA expects to be provided a directory ("project root") and will automatically look for TypeScript and JavaScript code within that directory.
 
-To configure how FTA interprets a project, you can either pass CLI arguments or create a `fta.json` file. FTA will automatically look for `fta.json` in the project root, but you can only specify this with `--config-path`.
+To configure how FTA interprets a project, you can either pass CLI arguments or create a `fta.json` file. FTA will automatically look for `fta.json` in the project root, but you can specify this with `--config-path`.
 
 ## Supplying Options
 
@@ -10,24 +10,31 @@ Some options can also be controlled via CLI arguments, but not all:
 
 CLI arguments
 
-| Argument        | `fta.json` configuration option? |
-| --------------- | -------------------------------- |
-| `--config-path` | `--config-path`                  |
-| `--format`      | `--format`                       |
-| `--json`        | `--json`                         |
+| Argument             | Description                                         |
+| -------------------- | --------------------------------------------------- |
+| `--config-path`      | Path to `fta.json`                                  |
+| `--format`           | Format of the output (`table`, `csv` or `json`)     |
+| `--json`             | Shorthand for `--format json`                       |
+| `--output-limit`     | See full documentation for `output_limit` below     |
+| `--score-cap`        | See full documentation for `score_cap` below        |
+| `--include-comments` | See full documentation for `include_comments` below |
+| `--exclude-under`    | See full documentation for `exclude_under` below    |
 
 Configuration Options, set via `fta.json`
 
-| Option                | CLI argument         |
-| --------------------- | -------------------- |
-| `output_limit`        | `--output-limit`     |
-| `score_cap`           | `--score-cap`        |
-| `include_comments`    | `--include-comments` |
-| `exclude_under`       | `--exclude-under`    |
-| `exclude_under`       | `--exclude-under`    |
-| `extensions`          | N/A                  |
-| `exclude_filenames`   | N/A                  |
-| `exclude_directories` | N/A                  |
+| Option                | Equivalent CLI argument |
+| --------------------- | ----------------------- |
+| `output_limit`        | `--output-limit`        |
+| `score_cap`           | `--score-cap`           |
+| `include_comments`    | `--include-comments`    |
+| `exclude_under`       | `--exclude-under`       |
+| `extensions`          | N/A                     |
+| `exclude_filenames`   | N/A                     |
+| `exclude_directories` | N/A                     |
+
+CLI arguments will be given priority over options found in `fta.json`.
+
+View the full description for each configuration option below.
 
 ## Configuration Options
 
@@ -67,13 +74,13 @@ An array of directory paths representing directories to exclude from the analysi
 
 ### `exclude_filenames`
 
-An array of glob patterns representing filenames to exclude from the analysis. Files matching any of these patterns will be ignored. Globs can include wildcards and brace expansions. The defaults are always used; any supplied values are added to the exclusions list.
+An array of glob patterns representing filenames to exclude from the analysis. Files matching any of these patterns will be ignored. Globs can include wildcards and brace expansions. The defaults are always used; any supplied values are added to the exclusions list. Exclusions will override `extensions`.
 
 - **Default: `[".d.ts", ".min.js", ".bundle.js"]`**
 
 ### `extensions`
 
-File extensions to identify files that should be interpreted as TypeScript code. JavaScript files are also accepted. The defaults are always used; any supplied values are added to the inclusions list.
+File extensions to identify files that should be analyzed. JavaScript files are also accepted. The defaults are always used; any supplied values are added to the inclusions list.
 
 - **Default: `[".js", ".jsx", ".ts", ".tsx"]`**
 
