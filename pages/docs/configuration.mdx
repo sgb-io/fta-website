@@ -10,24 +10,29 @@ Some options can also be controlled via CLI arguments, but not all:
 
 CLI arguments
 
-| Argument        | Description                                     |
-| --------------- | ----------------------------------------------- |
-| `--config-path` | Path to `fta.json`                              |
-| `--format`      | Format of the output (`table`, `csv` or `json`) |
-| `--json`        | Shorthand for `--format json`                   |
+| Argument             | Description                                         |
+| -------------------- | --------------------------------------------------- |
+| `--config-path`      | Path to `fta.json`                                  |
+| `--format`           | Format of the output (`table`, `csv` or `json`)     |
+| `--json`             | Shorthand for `--format json`                       |
+| `--output-limit`     | See full documentation for `output_limit` below     |
+| `--score-cap`        | See full documentation for `score_cap` below        |
+| `--include-comments` | See full documentation for `include_comments` below |
+| `--exclude-under`    | See full documentation for `exclude_under` below    |
 
 Configuration Options, set via `fta.json`
 
-| Option                | CLI argument         |
-| --------------------- | -------------------- |
-| `output_limit`        | `--output-limit`     |
-| `score_cap`           | `--score-cap`        |
-| `include_comments`    | `--include-comments` |
-| `exclude_under`       | `--exclude-under`    |
-| `exclude_under`       | `--exclude-under`    |
-| `extensions`          | N/A                  |
-| `exclude_filenames`   | N/A                  |
-| `exclude_directories` | N/A                  |
+| Option                | Equivalent CLI argument |
+| --------------------- | ----------------------- |
+| `output_limit`        | `--output-limit`        |
+| `score_cap`           | `--score-cap`           |
+| `include_comments`    | `--include-comments`    |
+| `exclude_under`       | `--exclude-under`       |
+| `extensions`          | N/A                     |
+| `exclude_filenames`   | N/A                     |
+| `exclude_directories` | N/A                     |
+
+CLI arguments will be given priority over options found in `fta.json`.
 
 View the full description for each configuration option below.
 
