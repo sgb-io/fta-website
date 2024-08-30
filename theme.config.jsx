@@ -70,9 +70,13 @@ const config = {
     text: (
       <span>
         <a href="https://ftaproject.dev" target="_blank">
-          FTA Project
+          FTA Docs
         </a>
-        , powered by Nextra
+        , powered by Nextra. FTA is supported by{" "}
+        <strong>
+          <a href="https://savingtool.co.uk">Saving Tool UK</a>
+        </strong>{" "}
+        - the UK's most comprehensive personal finance tool.
       </span>
     ),
   },
