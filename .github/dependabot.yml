@@ -9,5 +9,5 @@ updates:
     directory: "/" # Location of package manifests
     schedule:
       interval: "weekly"
-- dependency-name: "next"
-  update-types: ["version-update:semver-minor"]
+  - dependency-name: "next"
+    update-types: ["minor"]
