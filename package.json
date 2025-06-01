@@ -14,7 +14,7 @@
     "@types/react-dom": "18.2.4",
     "dedent": "^1.5.3",
     "eslint": "9.25.0",
-    "eslint-config-next": "15.3.0",
+    "eslint-config-next": "15.3.3",
     "fta-wasm": "^1.0.0",
     "next": "13.5.11",
     "nextra": "^2.5.2",
