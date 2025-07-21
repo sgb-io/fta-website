@@ -2139,10 +2139,10 @@ format@^0.2.0:
   resolved "https://registry.yarnpkg.com/format/-/format-0.2.2.tgz#d6170107e9efdc4ed30c9dc39016df942b5cb58b"
   integrity sha512-wzsgA6WOq+09wrU1tsJ09udeR/YZRaeArL9e1wPbFg3GG2yDnC2ldKpxs4xunpFF9DgqCqOIra3bc1HWrJ37Ww==
 
-fta-wasm@^1.0.0:
-  version "1.0.0"
-  resolved "https://registry.yarnpkg.com/fta-wasm/-/fta-wasm-1.0.0.tgz#ebe694984af9282947d8515f0e57ab3c359bb3d3"
-  integrity sha512-LRHNXrSsaoXQuUxi9K6+CMrFD4cESaLrbgvKK2+qyvy7Wa1Pgo0JEaLd7+EcHyqm6LMeOi752N8gX2eI5NORaA==
+fta-wasm@^2.0.2:
+  version "2.0.2"
+  resolved "https://registry.yarnpkg.com/fta-wasm/-/fta-wasm-2.0.2.tgz#577674b21cd68ae09193207d28fb1e88bd4f86ca"
+  integrity sha512-AsTFLRPzbqfiWhr2UQA4EjLwgYZLZccDfJjS/xqpit06ZQXneEKVOSPs95sVniFoPQoN9Zi0uD2OMNANEzE0WA==
 
 function-bind@^1.1.2:
   version "1.1.2"
