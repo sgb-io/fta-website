@@ -16,7 +16,7 @@
     "eslint": "9.39.1",
     "eslint-config-next": "16.0.6",
     "fta-wasm": "^3.0.0",
-    "next": "13.5.11",
+    "next": "14.2.32",
     "nextra": "^2.5.2",
     "nextra-theme-docs": "^2.5.2",
     "react": "18.2.0",
