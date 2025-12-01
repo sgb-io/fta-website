@@ -13,7 +13,7 @@
     "@types/react": "18.2.6",
     "@types/react-dom": "18.2.4",
     "dedent": "^1.7.0",
-    "eslint": "9.39.0",
+    "eslint": "9.39.1",
     "eslint-config-next": "16.0.6",
     "fta-wasm": "^3.0.0",
     "next": "13.5.11",
