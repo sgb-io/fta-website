@@ -2,13 +2,13 @@
 
 import { useState, useEffect, useCallback } from "react";
 import dynamic from "next/dynamic";
-import { Callout } from "nextra-theme-docs";
+import { Callout } from "nextra/components";
 import dedent from "dedent";
 import init, { analyze_file_wasm } from "fta-wasm";
 
 import "./sandbox.css";
 
-import type { AnalysisResult } from "../../src/app/types";
+import type { AnalysisResult } from "./types";
 
 const DEFAULT_CODE_SAMPLE = dedent`
   // Paste your TypeScript code here

@@ -1,34 +1,22 @@
----
-title: Fast TypeScript Analyzer
----
+import { Tabs } from "nextra/components";
 
-import { Tab, Tabs } from "nextra-theme-docs";
-import { Callout } from "nextra/components";
-import Image from "next/image";
+## Getting Started
 
-<h2 align="center" style={{ fontSize: 24, marginBottom: 50, marginTop: 50 }}>
-  Fast TypeScript Analyzer
-</h2>
+FTA is distributed in several ways:
 
-FTA (Fast TypeScript Analyzer) is a super-fast TypeScript static analysis tool written in Rust. It captures static information about TypeScript code and generates easy-to-understand analytics that tell you about complexity and maintainability issues that you may want to address.
+- The `fta-cli` [npm package](https://www.npmjs.com/package/fta-cli) for command-line or server-side Node.js usage _**(Recommended)**_
+- The `fta-wasm` [npm package](https://www.npmjs.com/package/fta-wasm) - for in-browser WebAssembly usage (this is what the [Playground](/playground) runs)
+- The `fta` [Rust crate](https://crates.io/crates/fta) - internal or advanced usage only
 
-FTA uses [swc](https://github.com/swc-project/swc) to parse your code then runs various analytical routines against it to understand how complex and maintainable it is likely to be. JavaScript code is also supported.
+The most common and easiest way to use FTA is by calling `fta-cli` either as a binary or from a Node.js server-side context.
 
-<Callout emoji="⚡">
-  FTA is fast: on typical hardware, it can analyze up to{" "}
-  <strong>1600 files per second</strong>.
-</Callout>
+You can call it:
 
----
+- As a script that prints out information about your project (_Recommended_)
+  - You can optionally set `score_cap` to require a minimum quality level in your CI (See [Configuration](/docs/configuration))
+- From code so that you can programmatically interact with the full output
 
-<div align="center">
-  [Get Started](/docs/getting-started) · [Playground](/playground) · [GitHub
-  Repository](https://github.com/sgb-io/fta)
-</div>
-
----
-
-## Quickstart
+## Installation
 
 There are several ways to use `fta`. The simplest is to use `fta-cli`:
 
@@ -122,12 +110,72 @@ The full metrics available for each file:
 }
 ```
 
-You can also see how FTA analyzes individual files by using the [Playground](/playground/).
+## Call FTA from a package.json script
 
-View the full [docs](/docs/getting-started/) to see all the possible ways to use FTA.
+1. To call FTA from a script, install `fta-cli` as a dependency and call it:
 
-## Get Involved
+To install `fta-cli`:
 
-FTA is completely open-source. Get involved by joining the discussion on the [GitHub Repository](https://github.com/sgb-io/fta).
+<Tabs items={["yarn", "npm", "pnpm"]}>
+  <Tabs.Tab>
+    <div>`yarn add fta-cli`</div>
+  </Tabs.Tab>
+  <Tabs.Tab>
+    <div>`npm install fta-cli`</div>
+  </Tabs.Tab>
+  <Tabs.Tab>
+    <div>`pnpm install fta-cli`</div>
+  </Tabs.Tab>
+</Tabs>
 
+2. Call `fta` from a `package.json` script:
 
+```json
+"scripts": {
+  "fta": "fta src"
+}
+```
+
+## Call FTA from code
+
+You can also call `fta-cli` from code:
+
+```javascript
+import { runFta } from "fta-cli";
+// CommonJS alternative:
+// const { runFta } = require("fta-cli");
+
+// Print the standard ascii table output
+const standardOutput = runFta("path/to/project");
+
+// Alternatively, get the full output as JSON so that you can interact with it
+const output = runFta("path/to/project", { json: true });
+```
+
+It is also possible to make fta print the output as json in a scripting context:
+
+```
+yarn fta path/to/project --json
+```
+
+To use fta natively in a browser (client-side), the `fta-wasm` package exists. The FTA binary is precompiled to WebAssembley and exposed through this npm package. The `fta-wasm` package can be seen in action on the [Playground](/playground).
+
+## Configuration
+
+The `fta-cli` package exposes a set of command-line arguments and can be configured in detail using an `fta.json` file.
+
+See the [Configuration](/docs/configuration) docs.
+
+## Scoring
+
+See [Scoring](/docs/scoring).
+
+## Change Log
+
+You can view releases of the FTA Rust crate on the GitHub [Releases](https://github.com/sgb-io/fta/releases) page.
+
+You can also view the [CHANGELOG](https://github.com/sgb-io/fta/blob/main/CHANGELOG.md) file for changes.
+
+## License
+
+[MIT](LICENSE.md)
