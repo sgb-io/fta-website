@@ -1,4 +1,4 @@
-const nextra = require("nextra");
+import nextra from "nextra";
 
 const config = {
   webpack(config, { isServer, dev }) {
@@ -36,8 +36,7 @@ class WasmChunksFixPlugin {
 }
 
 const withNextra = nextra({
-  theme: "nextra-theme-docs",
-  themeConfig: "./theme.config.jsx",
+  contentDirBasePath: "/",
 });
 
-module.exports = withNextra(config);
+export default withNextra(config);

@@ -1,0 +1,21 @@
+const meta = {
+  index: {
+    title: "Introduction",
+    type: "page",
+    display: "hidden",
+  },
+  docs: {
+    title: "Docs",
+    type: "page",
+    href: "/docs/getting-started",
+  },
+  playground: {
+    title: "Playground",
+    type: "page",
+    theme: {
+      layout: "full",
+    },
+  },
+};
+
+export default meta;
