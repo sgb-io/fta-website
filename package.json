@@ -14,9 +14,9 @@
     "@types/react-dom": "19.1.6",
     "dedent": "^1.7.1",
     "eslint": "9.39.1",
-    "eslint-config-next": "16.1.1",
+    "eslint-config-next": "16.2.6",
     "fta-wasm": "^3.0.0",
-    "next": "16.0.7",
+    "next": "16.2.6",
     "nextra": "4.6.1",
     "nextra-theme-docs": "4.6.1",
     "react": "19.0.0",
@@ -25,7 +25,7 @@
     "typescript": "5.8.3"
   },
   "devDependencies": {
-    "@eslint/eslintrc": "^3.3.3",
+    "@eslint/eslintrc": "3.3.5",
     "@types/dedent": "^0.7.2",
     "@types/react-syntax-highlighter": "^15.5.13"
   }
