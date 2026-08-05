@@ -9,24 +9,24 @@
     "lint": "eslint ."
   },
   "dependencies": {
-    "@types/node": "25.0.3",
-    "@types/react": "19.1.8",
-    "@types/react-dom": "19.1.6",
     "dedent": "^1.7.1",
-    "eslint": "9.39.1",
-    "eslint-config-next": "16.2.6",
     "fta-wasm": "^3.0.0",
     "next": "16.2.6",
     "nextra": "4.6.1",
     "nextra-theme-docs": "4.6.1",
     "react": "19.0.0",
     "react-dom": "19.0.0",
-    "react-syntax-highlighter": "^16.1.0",
-    "typescript": "5.9.3"
+    "react-syntax-highlighter": "^16.1.0"
   },
   "devDependencies": {
     "@eslint/eslintrc": "3.3.5",
     "@types/dedent": "^0.7.2",
-    "@types/react-syntax-highlighter": "^15.5.13"
+    "@types/node": "25.0.3",
+    "@types/react": "19.1.8",
+    "@types/react-dom": "19.1.6",
+    "@types/react-syntax-highlighter": "^15.5.13",
+    "eslint": "9.39.1",
+    "eslint-config-next": "16.2.6",
+    "typescript": "5.9.3"
   }
 }
